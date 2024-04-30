@@ -1,36 +1,70 @@
 package com.teamSpringBoot.controllers;
 
 import com.teamSpringBoot.models.Etudiant;
-import com.teamSpringBoot.services.EtudiantService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.teamSpringBoot.services.EtudiantServiceImplementation1;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 
 @Controller
 public class EtudiantController {
 
-    @Autowired
-    EtudiantService etudiantService;
+    EtudiantServiceImplementation1 etudiantServiceImplementation1;
 
-    @GetMapping("/createEtudiant")
-    public Etudiant createEtudiant(String nomEtudiant, String prenomEtudiant, int niveauEtudiant, String filiereEtudiant) {
-        return etudiantService.createEtudiant(nomEtudiant, prenomEtudiant, niveauEtudiant, filiereEtudiant);
+    @RequestMapping("/createEtudiant")
+    public String createEtudiant(){
+
+        return "CreateEtudiant";
+
     }
 
-    @GetMapping("/deleteEtudiant")
-    public void deleteEtudiant(Long id) {
-        etudiantService.deleteEtudiant(id);
+    @RequestMapping("/saveEtudiant")
+    public String saveEtudiant(@RequestParam String nomEtudiant, @RequestParam String prenomEtudiant, @RequestParam int niveauEtudiant, @RequestParam String filiereEtudiant){
+
+        Etudiant etudiant = new Etudiant(nomEtudiant, prenomEtudiant,niveauEtudiant, filiereEtudiant);
+        etudiantServiceImplementation1.saveEtudiant(etudiant);
+        return "CreateEtudiant";
+
     }
 
-    @GetMapping("/updateEtudiant")
-    public Etudiant updateEtudiant(Long id, String nom, String prenom, int niveau, String filiere) {
-        return etudiantService.updateEtudiant(id, nom, prenom, niveau, filiere);
+    @RequestMapping("/etudiantsList")
+    public String etudiantsList(ModelMap modelMap){
+
+        List<Etudiant> etudiantsController = etudiantServiceImplementation1.findAllEtudiants();
+        modelMap.addAttribute("etudiantJsp","etudiantsController");
+        return "EtudiantsList";
     }
 
-    @GetMapping("/findEtudiant{id}")
-    public Etudiant findEtudiantById(Long id) {
-        return etudiantService.findEtudiantByIdEtudiant(id);
+    @RequestMapping("/deleteEtudiant")
+    public String deleteEtudiant(@RequestParam("id") Long id, ModelMap modelMap){
+
+        etudiantServiceImplementation1.deleEtudiantById(id);
+        List<Etudiant> etudiantsController = etudiantServiceImplementation1.findAllEtudiants();
+        modelMap.addAttribute("etudiantJsp","etudiantsController");
+        return "EtudiantsList";
+
+    }
+
+    @RequestMapping("/showEtudiant")
+    public String showEtudiant(@RequestParam("id") Long id, ModelMap modelMap){
+
+        Etudiant etudiantController = etudiantServiceImplementation1.findEtudiantByIdEtudiant(id);
+        modelMap.addAttribute("etudiantJsp", etudiantController);
+        return "EditEtudiant";
+
+    }
+
+    @RequestMapping("/updateEtudiant")
+    public String updateEtudiant(@RequestParam String nomEtudiant, @RequestParam String prenomEtudiant, @RequestParam int niveauEtudiant, @RequestParam String filiereEtudiant){
+
+        Etudiant etudiant = new Etudiant(nomEtudiant, prenomEtudiant,niveauEtudiant, filiereEtudiant);
+        etudiantServiceImplementation1.saveEtudiant(etudiant);
+        return "EditEtudiant";
+
     }
 
 }
