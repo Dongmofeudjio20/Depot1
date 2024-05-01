@@ -1,14 +1,16 @@
-package com.teamSpringBoot.services;
+package com.teamSpringBoot.services.Impl;
 
 import com.teamSpringBoot.models.Etudiant;
 import com.teamSpringBoot.repositories.EtudiantRepository;
+import com.teamSpringBoot.services.EtudiantService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class EtudiantServiceImplementation1 implements EtudiantService{
+public class EtudiantServiceImplementation1 implements EtudiantService {
 
     @Autowired
     EtudiantRepository etudiantRepository;

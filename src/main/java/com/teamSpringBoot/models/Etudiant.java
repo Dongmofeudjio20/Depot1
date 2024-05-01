@@ -1,77 +1,67 @@
 package com.teamSpringBoot.models;
 
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.Table;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
+@Table(name = "Etudiant")
 public class Etudiant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEtudiant;
+    @Basic(optional = false)
+    private Long etudiantId;
 
-    private String matriculeEtudiant;
+    @Column(name = "Matricule", nullable = false, length = 50)
+    private String etudiantMatricule;
 
-    private String nomEtudiant;
+    @Column(name = "Nom", nullable = false, length = 15)
+    private String etudiantName;
 
-    private String prenomEtudiant;
+    @Column(name = "Prénom", nullable = false, length = 10)
+    private String etudiantFirstname;
 
+    @Column(name = "Niveau", nullable = false, length = 10)
     private int niveauEtudiant;
 
-    private String filiereEtudiant;
+    @Column(name = "Filiere", nullable = false, length = 20)
+    private String etudiantSpeciality;
 
-    public static List<Etudiant> etudiants = new ArrayList<>();
-
-    public Etudiant(String nomEtudiant, String prenomEtudiant, int niveauEtudiant, String filiereEtudiant) {
-        this.nomEtudiant = nomEtudiant;
-        this.prenomEtudiant = prenomEtudiant;
-        this.niveauEtudiant = niveauEtudiant;
-        this.filiereEtudiant = filiereEtudiant;
-
-        etudiants.add(this);
+    public Long getEtudiantId() {
+        return etudiantId;
     }
 
-    public Long getIdEtudiant() {
-        return idEtudiant;
+    public void setEtudiantId(Long etudiantId) {
+        this.etudiantId = etudiantId;
     }
 
-    public void setIdEtudiant(Long idEtudiant) {
-        this.idEtudiant = idEtudiant;
+    public String getEtudiantMatricule() {
+        return etudiantMatricule;
     }
 
-    public String getMatriculeEtudiant() {
-        return matriculeEtudiant;
+    public void setEtudiantMatricule(String etudiantMatricule) {
+        this.etudiantMatricule = etudiantMatricule;
     }
 
-    public void setMatriculeEtudiant(String matriculeEtudiant) {
-        this.matriculeEtudiant = matriculeEtudiant;
+    public String getEtudiantName() {
+        return etudiantName;
     }
 
-    public String getNomEtudiant() {
-        return nomEtudiant;
+    public void setEtudiantName(String etudiantName) {
+        this.etudiantName = etudiantName;
     }
 
-    public void setNomEtudiant(String nomEtudiant) {
-        this.nomEtudiant = nomEtudiant;
+    public String getEtudiantFirstname() {
+        return etudiantFirstname;
     }
 
-    public String getPrenomEtudiant() {
-        return prenomEtudiant;
-    }
-
-    public void setPrenomEtudiant(String prenomEtudiant) {
-        this.prenomEtudiant = prenomEtudiant;
+    public void setEtudiantFirstname(String etudiantFirstname) {
+        this.etudiantFirstname = etudiantFirstname;
     }
 
     public int getNiveauEtudiant() {
@@ -82,32 +72,12 @@ public class Etudiant {
         this.niveauEtudiant = niveauEtudiant;
     }
 
-    public String getFiliereEtudiant() {
-        return filiereEtudiant;
+    public String getEtudiantSpeciality() {
+        return etudiantSpeciality;
     }
 
-    public void setFiliereEtudiant(String filiereEtudiant) {
-        this.filiereEtudiant = filiereEtudiant;
-    }
-
-    @Override
-    public String toString() {
-        return "Etudiant{" +
-                "idEtudiant=" + idEtudiant +
-                ", matriculeEtudiant='" + matriculeEtudiant + '\'' +
-                ", nomEtudiant='" + nomEtudiant + '\'' +
-                ", prenomEtudiant='" + prenomEtudiant + '\'' +
-                ", niveauEtudiant=" + niveauEtudiant +
-                ", filiereEtudiant='" + filiereEtudiant + '\'' +
-                '}';
-    }
-
-    public static List<Etudiant> getEtudiants() {
-        return etudiants;
-    }
-
-    public static void setEtudiants(List<Etudiant> etudiants) {
-        Etudiant.etudiants = etudiants;
+    public void setEtudiantSpeciality(String etudiantSpeciality) {
+        this.etudiantSpeciality = etudiantSpeciality;
     }
 
 }
